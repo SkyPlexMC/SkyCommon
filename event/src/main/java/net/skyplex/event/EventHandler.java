@@ -1,0 +1,15 @@
+package net.skyplex.event;
+
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Represents an element which can have {@link Event} listeners assigned to it.
+ */
+@ApiStatus.Experimental
+@ApiStatus.NonExtendable
+public interface EventHandler<T extends Event> {
+
+    @NotNull EventNode<T> eventNode();
+
+}
