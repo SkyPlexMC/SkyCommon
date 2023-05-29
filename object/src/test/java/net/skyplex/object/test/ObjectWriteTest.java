@@ -15,8 +15,8 @@
  */
 package net.skyplex.object.test;
 
-import net.skyplex.object.SimpleArray;
-import net.skyplex.object.SimpleObject;
+import net.skyplex.common.object.SimpleArray;
+import net.skyplex.common.object.SimpleObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -15,7 +15,7 @@
  */
 package net.skyplex.object.test;
 
-import net.skyplex.object.parser.Parser;
+import net.skyplex.common.object.parser.Parser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

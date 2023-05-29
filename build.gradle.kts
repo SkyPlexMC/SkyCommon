@@ -50,10 +50,10 @@ allprojects {
         maven {
             name = "SkyPlex"
             credentials(PasswordCredentials::class.java)
-            url = uri("https://repo.mc-skyplex.net/releases")
+            url = uri("https://repo.mc-skyplex.net/releases/")
         }
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://jitpack.io/") }
         maven { url = uri("https://repo.aikar.co/content/groups/aikar/") }
     }
 
