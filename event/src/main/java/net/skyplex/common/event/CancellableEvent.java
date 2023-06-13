@@ -1,20 +1,20 @@
 package net.skyplex.common.event;
 
 /**
- * Represents an {@link Event} which can be cancelled.
- * Called using {@link EventNode#callCancellable(Event, Runnable)}.
+ * Represents an {@link Object} which can be cancelled.
+ * Called using {@link EventNode#callCancellable(Object, Runnable)}.
  */
-public interface CancellableEvent extends Event {
+public interface CancellableEvent {
 
     /**
-     * Gets if the {@link Event} should be cancelled or not.
+     * Gets if the {@link Object} should be cancelled or not.
      *
      * @return true if the event should be cancelled
      */
     boolean isCancelled();
 
     /**
-     * Marks the {@link Event} as cancelled or not.
+     * Marks the {@link Object} as cancelled or not.
      *
      * @param cancel true if the event should be cancelled, false otherwise
      */

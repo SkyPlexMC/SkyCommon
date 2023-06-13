@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 /**
- * Represents a filter for a specific {@link Event} type.
+ * Represents a filter for a specific {@link Object} type.
  * <p>
  * The handler represents a "target" of the event. This can be used
  * to create filters for all events of a specific type using information
@@ -16,13 +16,13 @@ import java.util.function.Function;
  * @param <E> The event type to filter
  * @param <H> The handler type to filter on.
  */
-public interface EventFilter<E extends Event, H> {
+public interface EventFilter<E, H> {
 
-    EventFilter<Event, ?> ALL = from(Event.class, null, null);
+    EventFilter<Object, ?> ALL = from(Object.class, null, null);
 
-    static <E extends Event, H> EventFilter<E, H> from(@NotNull Class<E> eventType,
-                                                       @Nullable Class<H> handlerType,
-                                                       @Nullable Function<E, H> handlerGetter) {
+    static <E, H> EventFilter<E, H> from(@NotNull Class<E> eventType,
+                                         @Nullable Class<H> handlerType,
+                                         @Nullable Function<E, H> handlerGetter) {
         return new EventFilter<>() {
             @Override
             public @Nullable H getHandler(@NotNull E event) {
@@ -64,7 +64,7 @@ public interface EventFilter<E extends Event, H> {
     @NotNull Class<E> eventType();
 
     /**
-     * The type returned by {@link #getHandler(Event)}.
+     * The type returned by {@link #getHandler(Object)}.
      *
      * @return the handler type, null if not any
      */

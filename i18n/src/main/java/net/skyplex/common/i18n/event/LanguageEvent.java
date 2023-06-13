@@ -15,10 +15,9 @@
  */
 package net.skyplex.common.i18n.event;
 
-import net.skyplex.common.event.Event;
 import net.skyplex.common.event.EventFilter;
 
-public interface LanguageEvent extends Event {
+public interface LanguageEvent {
 
     EventFilter<LanguageEvent, ?> FILTER = EventFilter.from(LanguageEvent.class, null, null);
 

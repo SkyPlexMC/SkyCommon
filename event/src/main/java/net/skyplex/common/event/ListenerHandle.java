@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @param <E> the event type
  */
 @ApiStatus.Experimental
-public sealed interface ListenerHandle<E extends Event> permits EventNodeImpl.Handle {
+public sealed interface ListenerHandle<E> permits EventNodeImpl.Handle {
     /**
      * Calls the given event.
      * Will try to fast exit the execution when possible if {@link #hasListener()} return {@code false}.
@@ -28,7 +28,7 @@ public sealed interface ListenerHandle<E extends Event> permits EventNodeImpl.Ha
      * May trigger an update if the cached data is not correct.
      * <p>
      * Useful if you are able to avoid expensive computation in the case where
-     * the event is unused. Be aware that {@link #call(Event)}
+     * the event is unused. Be aware that {@link #call(Object)}
      * has similar optimization built-in.
      *
      * @return true if the event has 1 or more listeners

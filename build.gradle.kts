@@ -16,9 +16,6 @@ allprojects {
     java {
         withSourcesJar()
         withJavadocJar()
-    }
-
-    java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
         }

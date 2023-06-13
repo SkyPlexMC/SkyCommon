@@ -14,7 +14,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
-non-sealed class EventNodeImpl<T extends Event> implements EventNode<T> {
+non-sealed class EventNodeImpl<T> implements EventNode<T> {
     static final Object GLOBAL_CHILD_LOCK = new Object();
 
     private final Map<Class<?>, Handle<T>> handleMap = new ConcurrentHashMap<>();
@@ -308,13 +308,13 @@ non-sealed class EventNodeImpl<T extends Event> implements EventNode<T> {
         }
     }
 
-    private static class ListenerEntry<T extends Event> {
+    private static class ListenerEntry<T> {
         final List<EventListener<T>> listeners = new CopyOnWriteArrayList<>();
         final Set<Consumer<T>> bindingConsumers = new CopyOnWriteArraySet<>();
     }
 
     @SuppressWarnings("unchecked")
-    final class Handle<E extends Event> implements ListenerHandle<E> {
+    final class Handle<E> implements ListenerHandle<E> {
         private final Class<E> eventType;
         private Consumer<E> listener = null;
         private volatile boolean updated;

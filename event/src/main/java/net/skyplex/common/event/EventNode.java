@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  *
  * @param <T> The event type accepted by this node
  */
-public sealed interface EventNode<T extends Event> permits EventNodeImpl {
+public sealed interface EventNode<T> permits EventNodeImpl {
 
     /**
      * Creates an event node which accepts any event type with no filtering.
@@ -29,7 +29,7 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @return An event node with no filtering
      */
     @Contract(value = "_ -> new", pure = true)
-    static @NotNull EventNode<Event> all(@NotNull String name) {
+    static @NotNull EventNode<Object> all(@NotNull String name) {
         return type(name, EventFilter.ALL);
     }
 
@@ -48,8 +48,8 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @return A node with just an event type filter
      */
     @Contract(value = "_, _ -> new", pure = true)
-    static <E extends Event, V> @NotNull EventNode<E> type(@NotNull String name,
-                                                           @NotNull EventFilter<E, V> filter) {
+    static <E, V> @NotNull EventNode<E> type(@NotNull String name,
+                                             @NotNull EventFilter<E, V> filter) {
         return create(name, filter, null);
     }
 
@@ -73,9 +73,9 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @return A node with an event type filter as well as a condition on the event.
      */
     @Contract(value = "_, _, _ -> new", pure = true)
-    static <E extends Event, V> @NotNull EventNode<E> event(@NotNull String name,
-                                                            @NotNull EventFilter<E, V> filter,
-                                                            @NotNull Predicate<E> predicate) {
+    static <E, V> @NotNull EventNode<E> event(@NotNull String name,
+                                              @NotNull EventFilter<E, V> filter,
+                                              @NotNull Predicate<E> predicate) {
         return create(name, filter, (e, h) -> predicate.test(e));
     }
 
@@ -101,9 +101,9 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @return A node with an event type filter as well as a condition on the event.
      */
     @Contract(value = "_, _, _ -> new", pure = true)
-    static <E extends Event, V> @NotNull EventNode<E> type(@NotNull String name,
-                                                           @NotNull EventFilter<E, V> filter,
-                                                           @NotNull BiPredicate<E, V> predicate) {
+    static <E, V> @NotNull EventNode<E> type(@NotNull String name,
+                                             @NotNull EventFilter<E, V> filter,
+                                             @NotNull BiPredicate<E, V> predicate) {
         return create(name, filter, predicate);
     }
 
@@ -126,15 +126,15 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @return A node with an event type filter as well as a condition on the event.
      */
     @Contract(value = "_, _, _ -> new", pure = true)
-    static <E extends Event, V> @NotNull EventNode<E> value(@NotNull String name,
-                                                            @NotNull EventFilter<E, V> filter,
-                                                            @NotNull Predicate<V> predicate) {
+    static <E, V> @NotNull EventNode<E> value(@NotNull String name,
+                                              @NotNull EventFilter<E, V> filter,
+                                              @NotNull Predicate<V> predicate) {
         return create(name, filter, (e, h) -> predicate.test(h));
     }
 
-    private static <E extends Event, V> EventNode<E> create(@NotNull String name,
-                                                            @NotNull EventFilter<E, V> filter,
-                                                            @Nullable BiPredicate<E, V> predicate) {
+    private static <E, V> EventNode<E> create(@NotNull String name,
+                                              @NotNull EventFilter<E, V> filter,
+                                              @Nullable BiPredicate<E, V> predicate) {
         //noinspection unchecked
         return new EventNodeImpl<>(name, filter, predicate != null ? (e, o) -> predicate.test(e, (V) o) : null);
     }
@@ -165,7 +165,7 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
 
     /**
      * Execute a cancellable event with a callback to execute if the event is successful.
-     * Event conditions and propagation is the same as {@link #call(Event)}.
+     * Event conditions and propagation is the same as {@link #call(Object)}.
      *
      * @param event           The event to execute
      * @param successCallback A callback if the event is not cancelled

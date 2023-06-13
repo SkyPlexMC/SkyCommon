@@ -7,7 +7,7 @@ import java.lang.invoke.VarHandle;
 import java.lang.ref.WeakReference;
 import java.util.function.Consumer;
 
-final class EventNodeLazyImpl<E extends Event> extends EventNodeImpl<E> {
+final class EventNodeLazyImpl<E> extends EventNodeImpl<E> {
     private static final VarHandle MAPPED;
 
     static {
